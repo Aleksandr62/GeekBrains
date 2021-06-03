@@ -37,7 +37,7 @@ function loadScriptExt(args, callback = null) {
         const element = document.createElement("script");
         element.type = "text/javascript";
         element.src = args;
-        element.onload = callback;
+        element.onload = () => callback(element);
 
         document.body.appendChild(element);
     };
