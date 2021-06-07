@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datetime superapp</title>
+    <style>
+        .nav-tabs {
+            display: flex;
+        }
+
+        .select-btn {
+            margin-right: 10px;
+            padding: 8px 16px;
+            width: fit-content;
+            cursor: pointer;
+            background: #EBEBEB;
+            border-radius: 3px;
+        }
+
+        .date-calc__result {
+            opacity: 0;
+            margin-top: 16px;
+            padding: 16px;
+            width: fit-content;
+            border: none;
+            border-radius: 3px;
+        }
+
+        .date-calc {
+            padding: 16px;
+            width: fit-content;
+            border: 1px solid #EBEBEB;
+            border-radius: 3px;
+            box-shadow: 2px 2px 3px #222222;
+        }
+        .active-tab {
+            background: green;
+        }
+    </style>
+    <script src="./main.js" type="module"></script>
+</head>
+
+<body>
+    <nav class="nav-tabs">
+        <div class="select-btn" data-tab="date-calc">Калькулятор дат</div>
+        <div class="select-btn" data-tab="timer">Таймер</div>
+    </nav>
+    <div id="app">
+        <h2>Калькулятор дат</h2>
+        <form class="date-calc" action="">
+            <label for="dateOne">Первая дата: </label>
+            <input id="dateOne" type="date" name="firstDate">
+            <label for="dateTwo">Вторая дата: </label>
+            <input id="dateTwo" type="date" name="secondDate">
+            <input type="submit" value="Рассчитать промежуток">
+            <p class="date-calc__result"></p>
+        </form>
+    </div>
+<script src="loadScript.js"></script>
+</body>
+
+</html>
