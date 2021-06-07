@@ -18,27 +18,34 @@ loadScript("test.js", () => {
         console.log("Callback для test.js - выполнение")
     })
 }); */
+// module B 
+loadScriptExt(["test.js", "test2.js"], (script) => {
+    console.log(`${script.src} загружен!`);
 
-loadScriptExt(["test.js", "test2.js"], () => {
-    loadScriptExt(() => {
-        console.log("Callback для test.js - выполнение")
-    })
+});
+// module A
+loadScriptExt(["test2.js", "test3.js"], (script) => {
+    console.log(`${script.src} загружен!`);
 });
 
-function loadScriptExt(args, callback = null) {
-    if (typeof args === 'function') args();
-    else if (Array.isArray(args)) {
+
+function loadScriptExt(src, callback) {
+    if (Array.isArray(src)) {
         const exclude = [];
-        args.forEach((el) => {
-            if (exclude.length === 0 || exclude.some(item => el !== item)) loadScriptExt(el, callback);
+        Array.from(document.getElementsByTagName('script')).forEach((el) => {
+            exclude.push(el.src.match(/\w+\.js$/)[0]);
+        });
+        src.forEach((el) => {
+            if (exclude.length === 0 || !exclude.some(item => el === item)) loadScriptExt(el, callback);
             exclude.push(el);
         });
     } else {
-        const element = document.createElement("script");
-        element.type = "text/javascript";
-        element.src = args;
-        element.onload = () => callback(element);
-
-        document.body.appendChild(element);
+        return new Promise(function (resolve, reject) {
+            let script = document.createElement('script');
+            script.src = src;
+            script.onload = resolve(callback(script));
+            script.onerror = () => reject(new Error(`Ошибка загрузки скрипта ${src}`));
+            document.head.append(script);
+        });
     };
-}
+};
