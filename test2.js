@@ -1,1 +1,1 @@
-console.log('Скрипт test2.js загружен');
+console.log('Скрипт test2.js выполняется');
